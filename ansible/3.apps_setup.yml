@@ -1,0 +1,5 @@
+- name: Deploy ArgoCD applications
+  hosts: bastion
+  become: true
+  roles:
+    - apps_setup

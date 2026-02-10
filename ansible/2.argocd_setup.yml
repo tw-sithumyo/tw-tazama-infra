@@ -1,0 +1,5 @@
+- name: Install ArgoCD and register git repository
+  hosts: bastion
+  become: true
+  roles:
+    - argocd_setup

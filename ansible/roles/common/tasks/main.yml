@@ -1,0 +1,30 @@
+- name: Install snapd
+  ansible.builtin.apt:
+    name: snapd
+    state: latest
+    update_cache: true
+
+- name: Install MicroK8s
+  ansible.builtin.snap:
+    name: microk8s
+    classic: true
+    state: present
+    channel: "{{ microk8s_version }}"
+
+- name: Wait for MicroK8s readiness
+  ansible.builtin.command: microk8s status --wait-ready
+  changed_when: false
+
+- name: Add user to microk8s group
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    groups: microk8s
+    append: true
+
+- name: Ensure .kube directory exists
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user }}/.kube"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0755"

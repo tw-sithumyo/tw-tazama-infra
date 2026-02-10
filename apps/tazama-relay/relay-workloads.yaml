@@ -1,0 +1,98 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rsef
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rsef
+  template:
+    metadata:
+      labels:
+        app: rsef
+    spec:
+      containers:
+        - name: rsef
+          image: tazamaorg/relay-service-integration-nats:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rs-nats-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: relay-service-ef
+            - name: CONSUMER_STREAM
+              value: interdiction-service-ef
+            - name: PRODUCER_STREAM
+              value: relay-service-nats-ef
+            - name: APM_SERVICE_NAME
+              value: relay-service-ef
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rstp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rstp
+  template:
+    metadata:
+      labels:
+        app: rstp
+    spec:
+      containers:
+        - name: rstp
+          image: tazamaorg/relay-service-integration-nats:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rs-nats-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: relay-service-tp
+            - name: CONSUMER_STREAM
+              value: interdiction-service-tp
+            - name: PRODUCER_STREAM
+              value: relay-service-nats-tp
+            - name: APM_SERVICE_NAME
+              value: relay-service-tp
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rstadp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rstadp
+  template:
+    metadata:
+      labels:
+        app: rstadp
+    spec:
+      containers:
+        - name: rstadp
+          image: tazamaorg/relay-service-integration-nats:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rs-nats-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: relay-service-tadp
+            - name: CONSUMER_STREAM
+              value: investigation-service
+            - name: PRODUCER_STREAM
+              value: relay-service-nats-tadp
+            - name: APM_SERVICE_NAME
+              value: relay-service-tadp

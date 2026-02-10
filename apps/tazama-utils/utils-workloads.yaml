@@ -1,0 +1,170 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nats-utilities
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nats-utilities
+  template:
+    metadata:
+      labels:
+        app: nats-utilities
+    spec:
+      containers:
+        - name: nats-utilities
+          image: tazamaorg/nats-utilities:rc
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4000
+          envFrom:
+            - configMapRef:
+                name: nats-utilities-env
+            - configMapRef:
+                name: tazama-global-env
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nats-utilities
+spec:
+  selector:
+    app: nats-utilities
+  ports:
+    - name: http
+      port: 4000
+      targetPort: 4000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgadmin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pgadmin
+  template:
+    metadata:
+      labels:
+        app: pgadmin
+    spec:
+      containers:
+        - name: pgadmin
+          image: dpage/pgadmin4:9
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: pgadmin-env
+          volumeMounts:
+            - name: pgadmin-servers
+              mountPath: /pgadmin4/servers.json
+              subPath: servers.json
+      volumes:
+        - name: pgadmin-servers
+          configMap:
+            name: pgadmin-servers
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pgadmin
+spec:
+  selector:
+    app: pgadmin
+  ports:
+    - name: http
+      port: 5050
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hasura
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hasura
+  template:
+    metadata:
+      labels:
+        app: hasura
+    spec:
+      containers:
+        - name: hasura
+          image: hasura/graphql-engine:v2.36.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: HASURA_GRAPHQL_METADATA_DATABASE_URL
+              value: postgres://postgres:unused@postgres:5432/hasura
+            - name: HASURA_GRAPHQL_DATABASE_URL_EVENT_HISTORY
+              value: postgres://postgres:unused@postgres:5432/event_history
+            - name: HASURA_GRAPHQL_DATABASE_URL_RAW_HISTORY
+              value: postgres://postgres:unused@postgres:5432/raw_history
+            - name: HASURA_GRAPHQL_DATABASE_URL_CONFIGURATION
+              value: postgres://postgres:unused@postgres:5432/configuration
+            - name: HASURA_GRAPHQL_DATABASE_URL_EVALUATION
+              value: postgres://postgres:unused@postgres:5432/evaluation
+            - name: HASURA_GRAPHQL_ENABLE_CONSOLE
+              value: "true"
+            - name: HASURA_GRAPHQL_DEV_MODE
+              value: "true"
+            - name: HASURA_GRAPHQL_ENABLED_LOG_TYPES
+              value: startup,http-log,webhook-log,websocket-log,query-log
+            - name: HASURA_GRAPHQL_ADMIN_SECRET
+              value: password
+            - name: HASURA_GRAPHQL_UNAUTHORIZED_ROLE
+              value: anonymous
+            - name: HASURA_GRAPHQL_CORS_DOMAIN
+              value: "*"
+            - name: HASURA_GRAPHQL_ENABLE_TELEMETRY
+              value: "false"
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hasura
+spec:
+  selector:
+    app: hasura
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hasura-init
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: hasura-init
+          image: curlimages/curl:latest
+          command:
+            - /bin/sh
+            - -c
+            - "echo 'Waiting 60s for system stabilization...' && sleep 60 && sh /init.sh"
+          volumeMounts:
+            - name: hasura-init-script
+              mountPath: /init.sh
+              subPath: init.sh
+      volumes:
+        - name: hasura-init-script
+          configMap:
+            name: hasura-init-script
+            defaultMode: 0755

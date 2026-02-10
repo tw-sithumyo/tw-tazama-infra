@@ -1,0 +1,12 @@
+microk8s_version: "1.31/stable"
+
+# Git repo ArgoCD should sync.
+# Update this to your tw-tazama-infra Git URL.
+git_url: "https://github.com/your-org/tw-tazama-infra.git"
+git_branch: "main"
+
+# Repo credentials (optional for private repos)
+git_username: ""
+git_password: ""
+
+ansible_python_interpreter: /usr/bin/python3

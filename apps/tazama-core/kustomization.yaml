@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: tazama
+
+resources:
+  - namespace.yaml
+  - core-workloads.yaml
+
+images:
+  - name: tazamaorg/admin-service
+    newTag: rc
+  - name: tazamaorg/tms-service
+    newTag: rc
+  - name: tazamaorg/event-director
+    newTag: rc
+  - name: tazamaorg/typology-processor
+    newTag: rc
+  - name: tazamaorg/transaction-aggregation-decisioning-processor
+    newTag: rc
+  - name: tazamaorg/event-flow
+    newTag: rc

@@ -1,0 +1,90 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: tazama
+spec:
+  selector:
+    app: postgres
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: 5432
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+  namespace: tazama
+spec:
+  serviceName: postgres
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:18
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5432
+              name: postgres
+          env:
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: unused
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql
+            - name: init-base
+              mountPath: /docker-entrypoint-initdb.d/00-CREATE.sql
+              subPath: 00-CREATE.sql
+              readOnly: true
+            - name: init-config
+              mountPath: /docker-entrypoint-initdb.d/01-public-base.sql
+              subPath: 00-public-base.sql
+              readOnly: true
+            - name: init-config
+              mountPath: /docker-entrypoint-initdb.d/02-public-github.sql
+              subPath: 01-public-github.sql
+              readOnly: true
+          readinessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - postgres
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - postgres
+            initialDelaySeconds: 40
+            periodSeconds: 20
+      volumes:
+        - name: init-base
+          configMap:
+            name: postgres-migration-base
+            optional: true
+        - name: init-config
+          configMap:
+            name: postgres-migration-config
+            optional: true
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 20Gi

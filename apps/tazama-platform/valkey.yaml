@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: valkey
+  namespace: tazama
+spec:
+  selector:
+    app: valkey
+  ports:
+    - name: valkey
+      port: 6379
+      targetPort: 6379
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: valkey
+  namespace: tazama
+spec:
+  serviceName: valkey
+  replicas: 1
+  selector:
+    matchLabels:
+      app: valkey
+  template:
+    metadata:
+      labels:
+        app: valkey
+    spec:
+      containers:
+        - name: valkey
+          image: valkey/valkey:7.2.5
+          imagePullPolicy: IfNotPresent
+          command:
+            - valkey-server
+            - --port
+            - "6379"
+            - --loglevel
+            - verbose
+          ports:
+            - containerPort: 6379
+              name: valkey
+          readinessProbe:
+            exec:
+              command:
+                - valkey-cli
+                - -p
+                - "6379"
+                - ping
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            exec:
+              command:
+                - valkey-cli
+                - -p
+                - "6379"
+                - ping
+            initialDelaySeconds: 30
+            periodSeconds: 15
+          volumeMounts:
+            - name: data
+              mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 5Gi

@@ -1,0 +1,77 @@
+stages:
+  - test
+  - deploy
+
+variables:
+  ANSIBLE_VERSION: "2.18.1"
+  PYTHON_IMAGE: "python:3.13"
+  ANSIBLE_CONFIG: "/builds/$CI_PROJECT_PATH/ansible/ansible.cfg"
+
+cache:
+  paths:
+    - ~/.cache/pip
+
+.before_script_template: &before_script
+  - pip install ansible-core==${ANSIBLE_VERSION}
+  - ansible --version
+  - eval $(ssh-agent -s)
+  - mkdir -p ~/.ssh
+  - cp "$SSH_PRIVATE_KEY" ~/.ssh/id_rsa
+  - chmod 600 ~/.ssh/id_rsa
+  - ssh-add ~/.ssh/id_rsa
+  - chmod 700 ~/.ssh
+  - cd ansible
+
+1_ping_test:
+  stage: test
+  image: ${PYTHON_IMAGE}
+  before_script:
+    - *before_script
+  script:
+    - ansible all -i inventory.ini -m ping
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: manual
+    - when: never
+
+2_microk8s_setup:
+  stage: deploy
+  image: ${PYTHON_IMAGE}
+  before_script:
+    - *before_script
+  script:
+    - ansible-playbook -i inventory.ini 1.microk8s_setup.yml
+    - mkdir -p ../artifacts
+    - cp config ../artifacts/kubeconfig
+  artifacts:
+    paths:
+      - artifacts/kubeconfig
+    expire_in: 1 week
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: manual
+    - when: never
+
+3_argocd_setup:
+  stage: deploy
+  image: ${PYTHON_IMAGE}
+  before_script:
+    - *before_script
+  script:
+    - ansible-playbook -i inventory.ini 2.argocd_setup.yml
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: manual
+    - when: never
+
+4_apps_setup:
+  stage: deploy
+  image: ${PYTHON_IMAGE}
+  before_script:
+    - *before_script
+  script:
+    - ansible-playbook -i inventory.ini 3.apps_setup.yml
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: manual
+    - when: never

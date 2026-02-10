@@ -1,0 +1,27 @@
+- name: Install MicroK8s and dependencies on all nodes
+  hosts: cluster
+  become: true
+  roles:
+    - role: common
+
+- name: Bootstrap cluster from first node
+  hosts: node1
+  become: true
+  roles:
+    - role: microk8s_cluster
+      vars:
+        cluster_primary: true
+
+- name: Join additional nodes to cluster
+  hosts: cluster:!node1
+  become: true
+  roles:
+    - role: microk8s_cluster
+      vars:
+        cluster_primary: false
+
+- name: Export kubeconfig to bastion and local runner
+  hosts: node1
+  become: true
+  roles:
+    - role: kubeconfig

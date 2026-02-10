@@ -1,0 +1,21 @@
+- name: Render {{ app_name }} template
+  ansible.builtin.template:
+    src: "{{ app_name }}.yaml.j2"
+    dest: "/tmp/{{ app_name }}.yaml"
+
+- name: Apply {{ app_name }} application
+  ansible.builtin.command: kubectl apply --validate=false -f /tmp/{{ app_name }}.yaml
+  environment:
+    KUBECONFIG: /home/{{ ansible_user }}/.kube/config
+
+- name: Wait for {{ app_name }} to be healthy and synced
+  ansible.builtin.shell: |
+    sleep 15
+    kubectl get application {{ app_name }} -n argocd -o json | jq -e '.status.health.status == "Healthy" and .status.sync.status == "Synced"'
+  register: status_result
+  retries: "{{ argocd_max_attempts }}"
+  delay: "{{ argocd_check_interval }}"
+  until: status_result.rc == 0
+  changed_when: false
+  environment:
+    KUBECONFIG: /home/{{ ansible_user }}/.kube/config

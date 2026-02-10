@@ -1,0 +1,1420 @@
+# Generated from docker-compose.full.rules.yaml pattern
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-001
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-001
+  template:
+    metadata:
+      labels:
+        app: rule-001
+    spec:
+      containers:
+        - name: rule-001
+          image: tazamaorg/rule-001:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-001-rel-rc
+            - name: RULE_NAME
+              value: "001"
+            - name: APM_SERVICE_NAME
+              value: rule-001
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-002
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-002
+  template:
+    metadata:
+      labels:
+        app: rule-002
+    spec:
+      containers:
+        - name: rule-002
+          image: tazamaorg/rule-002:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-002-rel-rc
+            - name: RULE_NAME
+              value: "002"
+            - name: APM_SERVICE_NAME
+              value: rule-002
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-003
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-003
+  template:
+    metadata:
+      labels:
+        app: rule-003
+    spec:
+      containers:
+        - name: rule-003
+          image: tazamaorg/rule-003:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-003-rel-rc
+            - name: RULE_NAME
+              value: "003"
+            - name: APM_SERVICE_NAME
+              value: rule-003
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-004
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-004
+  template:
+    metadata:
+      labels:
+        app: rule-004
+    spec:
+      containers:
+        - name: rule-004
+          image: tazamaorg/rule-004:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-004-rel-rc
+            - name: RULE_NAME
+              value: "004"
+            - name: APM_SERVICE_NAME
+              value: rule-004
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-006
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-006
+  template:
+    metadata:
+      labels:
+        app: rule-006
+    spec:
+      containers:
+        - name: rule-006
+          image: tazamaorg/rule-006:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-006-rel-rc
+            - name: RULE_NAME
+              value: "006"
+            - name: APM_SERVICE_NAME
+              value: rule-006
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-007
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-007
+  template:
+    metadata:
+      labels:
+        app: rule-007
+    spec:
+      containers:
+        - name: rule-007
+          image: tazamaorg/rule-007:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-007-rel-rc
+            - name: RULE_NAME
+              value: "007"
+            - name: APM_SERVICE_NAME
+              value: rule-007
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-008
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-008
+  template:
+    metadata:
+      labels:
+        app: rule-008
+    spec:
+      containers:
+        - name: rule-008
+          image: tazamaorg/rule-008:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-008-rel-rc
+            - name: RULE_NAME
+              value: "008"
+            - name: APM_SERVICE_NAME
+              value: rule-008
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-010
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-010
+  template:
+    metadata:
+      labels:
+        app: rule-010
+    spec:
+      containers:
+        - name: rule-010
+          image: tazamaorg/rule-010:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-010-rel-rc
+            - name: RULE_NAME
+              value: "010"
+            - name: APM_SERVICE_NAME
+              value: rule-010
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-011
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-011
+  template:
+    metadata:
+      labels:
+        app: rule-011
+    spec:
+      containers:
+        - name: rule-011
+          image: tazamaorg/rule-011:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-011-rel-rc
+            - name: RULE_NAME
+              value: "011"
+            - name: APM_SERVICE_NAME
+              value: rule-011
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-016
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-016
+  template:
+    metadata:
+      labels:
+        app: rule-016
+    spec:
+      containers:
+        - name: rule-016
+          image: tazamaorg/rule-016:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-016-rel-rc
+            - name: RULE_NAME
+              value: "016"
+            - name: APM_SERVICE_NAME
+              value: rule-016
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-017
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-017
+  template:
+    metadata:
+      labels:
+        app: rule-017
+    spec:
+      containers:
+        - name: rule-017
+          image: tazamaorg/rule-017:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-017-rel-rc
+            - name: RULE_NAME
+              value: "017"
+            - name: APM_SERVICE_NAME
+              value: rule-017
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-018
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-018
+  template:
+    metadata:
+      labels:
+        app: rule-018
+    spec:
+      containers:
+        - name: rule-018
+          image: tazamaorg/rule-018:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-018-rel-rc
+            - name: RULE_NAME
+              value: "018"
+            - name: APM_SERVICE_NAME
+              value: rule-018
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-020
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-020
+  template:
+    metadata:
+      labels:
+        app: rule-020
+    spec:
+      containers:
+        - name: rule-020
+          image: tazamaorg/rule-020:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-020-rel-rc
+            - name: RULE_NAME
+              value: "020"
+            - name: APM_SERVICE_NAME
+              value: rule-020
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-021
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-021
+  template:
+    metadata:
+      labels:
+        app: rule-021
+    spec:
+      containers:
+        - name: rule-021
+          image: tazamaorg/rule-021:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-021-rel-rc
+            - name: RULE_NAME
+              value: "021"
+            - name: APM_SERVICE_NAME
+              value: rule-021
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-024
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-024
+  template:
+    metadata:
+      labels:
+        app: rule-024
+    spec:
+      containers:
+        - name: rule-024
+          image: tazamaorg/rule-024:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-024-rel-rc
+            - name: RULE_NAME
+              value: "024"
+            - name: APM_SERVICE_NAME
+              value: rule-024
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-025
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-025
+  template:
+    metadata:
+      labels:
+        app: rule-025
+    spec:
+      containers:
+        - name: rule-025
+          image: tazamaorg/rule-025:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-025-rel-rc
+            - name: RULE_NAME
+              value: "025"
+            - name: APM_SERVICE_NAME
+              value: rule-025
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-026
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-026
+  template:
+    metadata:
+      labels:
+        app: rule-026
+    spec:
+      containers:
+        - name: rule-026
+          image: tazamaorg/rule-026:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-026-rel-rc
+            - name: RULE_NAME
+              value: "026"
+            - name: APM_SERVICE_NAME
+              value: rule-026
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-027
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-027
+  template:
+    metadata:
+      labels:
+        app: rule-027
+    spec:
+      containers:
+        - name: rule-027
+          image: tazamaorg/rule-027:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-027-rel-rc
+            - name: RULE_NAME
+              value: "027"
+            - name: APM_SERVICE_NAME
+              value: rule-027
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-028
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-028
+  template:
+    metadata:
+      labels:
+        app: rule-028
+    spec:
+      containers:
+        - name: rule-028
+          image: tazamaorg/rule-028:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-028-rel-rc
+            - name: RULE_NAME
+              value: "028"
+            - name: APM_SERVICE_NAME
+              value: rule-028
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-030
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-030
+  template:
+    metadata:
+      labels:
+        app: rule-030
+    spec:
+      containers:
+        - name: rule-030
+          image: tazamaorg/rule-030:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-030-rel-rc
+            - name: RULE_NAME
+              value: "030"
+            - name: APM_SERVICE_NAME
+              value: rule-030
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-044
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-044
+  template:
+    metadata:
+      labels:
+        app: rule-044
+    spec:
+      containers:
+        - name: rule-044
+          image: tazamaorg/rule-044:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-044-rel-rc
+            - name: RULE_NAME
+              value: "044"
+            - name: APM_SERVICE_NAME
+              value: rule-044
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-045
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-045
+  template:
+    metadata:
+      labels:
+        app: rule-045
+    spec:
+      containers:
+        - name: rule-045
+          image: tazamaorg/rule-045:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-045-rel-rc
+            - name: RULE_NAME
+              value: "045"
+            - name: APM_SERVICE_NAME
+              value: rule-045
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-048
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-048
+  template:
+    metadata:
+      labels:
+        app: rule-048
+    spec:
+      containers:
+        - name: rule-048
+          image: tazamaorg/rule-048:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-048-rel-rc
+            - name: RULE_NAME
+              value: "048"
+            - name: APM_SERVICE_NAME
+              value: rule-048
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-054
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-054
+  template:
+    metadata:
+      labels:
+        app: rule-054
+    spec:
+      containers:
+        - name: rule-054
+          image: tazamaorg/rule-054:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-054-rel-rc
+            - name: RULE_NAME
+              value: "054"
+            - name: APM_SERVICE_NAME
+              value: rule-054
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-063
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-063
+  template:
+    metadata:
+      labels:
+        app: rule-063
+    spec:
+      containers:
+        - name: rule-063
+          image: tazamaorg/rule-063:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-063-rel-rc
+            - name: RULE_NAME
+              value: "063"
+            - name: APM_SERVICE_NAME
+              value: rule-063
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-074
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-074
+  template:
+    metadata:
+      labels:
+        app: rule-074
+    spec:
+      containers:
+        - name: rule-074
+          image: tazamaorg/rule-074:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-074-rel-rc
+            - name: RULE_NAME
+              value: "074"
+            - name: APM_SERVICE_NAME
+              value: rule-074
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-075
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-075
+  template:
+    metadata:
+      labels:
+        app: rule-075
+    spec:
+      containers:
+        - name: rule-075
+          image: tazamaorg/rule-075:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-075-rel-rc
+            - name: RULE_NAME
+              value: "075"
+            - name: APM_SERVICE_NAME
+              value: rule-075
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-076
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-076
+  template:
+    metadata:
+      labels:
+        app: rule-076
+    spec:
+      containers:
+        - name: rule-076
+          image: tazamaorg/rule-076:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-076-rel-rc
+            - name: RULE_NAME
+              value: "076"
+            - name: APM_SERVICE_NAME
+              value: rule-076
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-078
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-078
+  template:
+    metadata:
+      labels:
+        app: rule-078
+    spec:
+      containers:
+        - name: rule-078
+          image: tazamaorg/rule-078:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-078-rel-rc
+            - name: RULE_NAME
+              value: "078"
+            - name: APM_SERVICE_NAME
+              value: rule-078
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-083
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-083
+  template:
+    metadata:
+      labels:
+        app: rule-083
+    spec:
+      containers:
+        - name: rule-083
+          image: tazamaorg/rule-083:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-083-rel-rc
+            - name: RULE_NAME
+              value: "083"
+            - name: APM_SERVICE_NAME
+              value: rule-083
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-084
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-084
+  template:
+    metadata:
+      labels:
+        app: rule-084
+    spec:
+      containers:
+        - name: rule-084
+          image: tazamaorg/rule-084:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-084-rel-rc
+            - name: RULE_NAME
+              value: "084"
+            - name: APM_SERVICE_NAME
+              value: rule-084
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-090
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-090
+  template:
+    metadata:
+      labels:
+        app: rule-090
+    spec:
+      containers:
+        - name: rule-090
+          image: tazamaorg/rule-090:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-090-rel-rc
+            - name: RULE_NAME
+              value: "090"
+            - name: APM_SERVICE_NAME
+              value: rule-090
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-091
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-091
+  template:
+    metadata:
+      labels:
+        app: rule-091
+    spec:
+      containers:
+        - name: rule-091
+          image: tazamaorg/rule-091:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-executer-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: FUNCTION_NAME
+              value: rule-091-rel-rc
+            - name: RULE_NAME
+              value: "091"
+            - name: APM_SERVICE_NAME
+              value: rule-091
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused

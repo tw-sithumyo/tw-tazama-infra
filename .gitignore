@@ -1,0 +1,11 @@
+# Ansible artifacts
+ansible/config
+ansible/artifacts/
+
+# kube/argocd local
+*.retry
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/

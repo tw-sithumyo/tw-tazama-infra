@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keycloak
+  template:
+    metadata:
+      labels:
+        app: keycloak
+    spec:
+      containers:
+        - name: keycloak
+          image: quay.io/keycloak/keycloak:23.0.6
+          imagePullPolicy: IfNotPresent
+          args:
+            - start-dev
+            - --import-realm
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: keycloak-env
+          env:
+            - name: KC_HOSTNAME
+              value: localhost
+            - name: KC_HOSTNAME_STRICT_BACKCHANNEL
+              value: "false"
+            - name: KC_HTTP_ENABLED
+              value: "true"
+            - name: KC_HOSTNAME_STRICT_HTTPS
+              value: "false"
+            - name: KEYCLOAK_IMPORT_STRATEGY
+              value: OVERWRITE_EXISTING
+            - name: QUARKUS_HTTP_ACCESS_LOG_ENABLED
+              value: "true"
+            - name: KC_LOG_LEVEL
+              value: INFO
+          volumeMounts:
+            - name: keycloak-realm
+              mountPath: /opt/keycloak/data/import/00-tazama-test-realm.json
+              subPath: 00-tazama-test-realm.json
+      volumes:
+        - name: keycloak-realm
+          configMap:
+            name: keycloak-realm
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: keycloak
+spec:
+  selector:
+    app: keycloak
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      containers:
+        - name: auth
+          image: tazamaorg/auth-service
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3020
+          envFrom:
+            - configMapRef:
+                name: auth-service-env
+            - configMapRef:
+                name: tazama-global-env
+          volumeMounts:
+            - name: auth-private-key
+              mountPath: /home/app/test-private-key.pem
+              subPath: test-private-key.pem
+      volumes:
+        - name: auth-private-key
+          secret:
+            secretName: auth-private-key
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth
+spec:
+  selector:
+    app: auth
+  ports:
+    - name: http
+      port: 3020
+      targetPort: 3020

@@ -1,0 +1,14 @@
+argocd_apps:
+  - base-utils
+  - tazama-platform-app
+  - tazama-config-app
+  - tazama-auth-app
+  - tazama-core-app
+  - tazama-rules-app
+  - tazama-relay-app
+  - tazama-observability-app
+  - tazama-ui-app
+  - tazama-utils-app
+
+argocd_max_attempts: 180
+argocd_check_interval: 10

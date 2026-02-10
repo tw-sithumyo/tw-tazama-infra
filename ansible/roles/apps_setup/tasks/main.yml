@@ -1,0 +1,5 @@
+- name: Deploy all ArgoCD apps
+  include_tasks: deploy_app.yml
+  loop: "{{ argocd_apps }}"
+  loop_control:
+    loop_var: app_name

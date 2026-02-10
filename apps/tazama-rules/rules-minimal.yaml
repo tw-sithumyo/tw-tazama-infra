@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-901
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-901
+  template:
+    metadata:
+      labels:
+        app: rule-901
+    spec:
+      containers:
+        - name: rule-901
+          image: tazamaorg/rule-901:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-901-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rule-902
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rule-902
+  template:
+    metadata:
+      labels:
+        app: rule-902
+    spec:
+      containers:
+        - name: rule-902
+          image: tazamaorg/rule-902:rc
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: rule-902-env
+            - configMapRef:
+                name: tazama-global-env
+          env:
+            - name: CONFIGURATION_DATABASE_USER
+              value: postgres
+            - name: CONFIGURATION_DATABASE_PASSWORD
+              value: unused
+            - name: EVENT_HISTORY_DATABASE_USER
+              value: postgres
+            - name: EVENT_HISTORY_DATABASE_PASSWORD
+              value: unused
+            - name: RAW_HISTORY_DATABASE_USER
+              value: postgres
+            - name: RAW_HISTORY_DATABASE_PASSWORD
+              value: unused

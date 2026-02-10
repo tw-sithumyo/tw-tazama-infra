@@ -1,0 +1,66 @@
+- name: Install jq on bastion
+  ansible.builtin.apt:
+    name: jq
+    state: present
+    update_cache: true
+
+- name: Install kubectl on bastion
+  ansible.builtin.shell: |
+    curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl
+    chmod +x kubectl
+    mv kubectl /usr/local/bin/kubectl
+  args:
+    executable: /bin/bash
+
+- name: Install ArgoCD CLI on bastion
+  ansible.builtin.shell: |
+    VERSION=$(curl --silent "https://api.github.com/repos/argoproj/argo-cd/releases/latest" | grep tag_name | cut -d '"' -f 4)
+    curl -sSL -o argocd "https://github.com/argoproj/argo-cd/releases/download/${VERSION}/argocd-linux-amd64"
+    chmod +x argocd
+    mv argocd /usr/local/bin/argocd
+  args:
+    executable: /bin/bash
+
+- name: Create ArgoCD namespace
+  ansible.builtin.shell: |
+    kubectl create namespace argocd || true
+  args:
+    executable: /bin/bash
+  environment:
+    KUBECONFIG: /home/{{ ansible_user }}/.kube/config
+
+- name: Install ArgoCD manifests
+  ansible.builtin.shell: |
+    kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+  args:
+    executable: /bin/bash
+  environment:
+    KUBECONFIG: /home/{{ ansible_user }}/.kube/config
+
+- name: Enable Helm support for Kustomize in ArgoCD
+  ansible.builtin.shell: |
+    kubectl patch configmap argocd-cm -n argocd --type merge -p '{"data":{"kustomize.buildOptions":"--enable-helm"}}'
+  args:
+    executable: /bin/bash
+  environment:
+    KUBECONFIG: /home/{{ ansible_user }}/.kube/config
+
+- name: Wait for ArgoCD server readiness
+  ansible.builtin.shell: |
+    kubectl rollout status deployment/argocd-server -n argocd --timeout=300s
+  args:
+    executable: /bin/bash
+  environment:
+    KUBECONFIG: /home/{{ ansible_user }}/.kube/config
+
+- name: Render repo secret
+  ansible.builtin.template:
+    src: templates/git-repo-secret.yaml.j2
+    dest: /tmp/git-repo-secret.yaml
+
+- name: Apply repo secret
+  ansible.builtin.shell: kubectl apply -f /tmp/git-repo-secret.yaml
+  args:
+    executable: /bin/bash
+  environment:
+    KUBECONFIG: /home/{{ ansible_user }}/.kube/config

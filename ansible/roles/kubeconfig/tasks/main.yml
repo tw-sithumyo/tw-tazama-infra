@@ -1,0 +1,32 @@
+- name: Export kubeconfig from primary node
+  ansible.builtin.shell: microk8s config
+  register: kubeconfig_content
+  delegate_to: node1
+  retries: 3
+  delay: 5
+  until: kubeconfig_content.rc == 0 and kubeconfig_content.stdout != ""
+
+- name: Ensure bastion kube folder exists
+  ansible.builtin.file:
+    path: /home/{{ ansible_user }}/.kube
+    state: directory
+    mode: "0755"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+  delegate_to: bastion
+
+- name: Save kubeconfig on bastion
+  ansible.builtin.copy:
+    content: "{{ kubeconfig_content.stdout }}"
+    dest: /home/{{ ansible_user }}/.kube/config
+    mode: "0600"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+  delegate_to: bastion
+
+- name: Fetch kubeconfig locally
+  ansible.builtin.fetch:
+    src: /home/{{ ansible_user }}/.kube/config
+    dest: "{{ playbook_dir }}/config"
+    flat: true
+  delegate_to: bastion

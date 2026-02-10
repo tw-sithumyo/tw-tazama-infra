@@ -1,0 +1,99 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: tazama
+
+resources:
+  - namespace.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+  - name: tazama-global-env
+    envs:
+      - env/global.env
+  - name: admin-env
+    envs:
+      - env/admin.env
+  - name: tms-env
+    envs:
+      - env/tms.env
+  - name: ed-env
+    envs:
+      - env/ed.env
+  - name: tp-env
+    envs:
+      - env/tp.env
+  - name: tadp-env
+    envs:
+      - env/tadp.env
+  - name: event-flow-env
+    envs:
+      - env/event-flow.env
+  - name: rule-901-env
+    envs:
+      - env/rule-901.env
+  - name: rule-902-env
+    envs:
+      - env/rule-902.env
+  - name: rule-executer-env
+    envs:
+      - env/rule-executer.env
+  - name: rs-nats-env
+    envs:
+      - env/rs-nats.env
+  - name: auth-service-env
+    envs:
+      - env/auth-service.env
+  - name: keycloak-env
+    envs:
+      - env/keycloak.env
+  - name: ui-env
+    envs:
+      - env/ui.env
+  - name: lumberjack-env
+    envs:
+      - env/lumberjack.env
+  - name: nats-utilities-env
+    envs:
+      - env/nats-utilities.env
+  - name: pgadmin-env
+    envs:
+      - env/pgadmin.env
+  - name: batch-ppa-env
+    envs:
+      - env/batch-ppa.env
+  - name: config-be-env
+    envs:
+      - env/config-be.env
+  - name: config-fe-env
+    envs:
+      - env/config-fe.env
+  - name: keycloak-realm
+    files:
+      - keycloak/00-tazama-test-realm.json
+  - name: hasura-init-script
+    files:
+      - hasura/init.sh
+  - name: postgres-migration-base
+    files:
+      - postgres/migration/base/00-CREATE.sql
+  - name: postgres-migration-config
+    files:
+      - postgres/migration/config/00-public-base.sql
+      - postgres/migration/config/01-public-github.sql
+      - postgres/migration/config/02-public-dockerhub.sql
+      - postgres/migration/config/03-full-dockerhub.sql
+      - postgres/migration/config/04-multitenancy.sql
+  - name: postgres-migration-test
+    files:
+      - postgres/migration/test/01-HASURA.sql
+
+secretGenerator:
+  - name: auth-private-key
+    files:
+      - auth/test-private-key.pem
+  - name: auth-public-key
+    files:
+      - auth/test-public-key.pem

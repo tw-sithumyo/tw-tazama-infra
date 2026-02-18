@@ -21,8 +21,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: ui-env
-            - configMapRef:
-                name: tazama-global-env
 ---
 apiVersion: v1
 kind: Service

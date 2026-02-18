@@ -6,53 +6,6 @@ Kubernetes GitOps scaffold for Tazama, structured to mirror `stg-hub-liberia-git
 - Argo CD Applications are rendered from Ansible templates.
 - Workloads are grouped under `apps/*` and managed with Kustomize.
 
-## How The Company Pattern Works (From `stg-hub-liberia-gitops`)
-
-1. Ansible playbooks run in sequence (`1.microk8s_setup.yml`, `2.argocd_setup.yml`, ...).
-2. Argo CD is installed on the cluster and connected to this Git repository.
-3. `apps_setup` renders one Argo `Application` per app folder with sync waves.
-4. Argo reconciles manifests under `apps/*` continuously.
-
-## Structure In This Repository
-
-```text
-ansible/
-  1.microk8s_setup.yml
-  2.argocd_setup.yml
-  3.apps_setup.yml
-  group_vars/all.yml
-  inventory.ini
-  roles/
-    common/
-    microk8s_cluster/
-    kubeconfig/
-    argocd_setup/
-    apps_setup/
-apps/
-  base-utils/
-  tazama-platform/
-  tazama-config/
-  tazama-auth/
-  tazama-core/
-  tazama-rules/
-  tazama-relay/
-  tazama-observability/
-  tazama-ui/
-  tazama-utils/
-```
-
-## Docker Compose To GitOps Mapping (From `Full-Stack-Docker-Tazama`)
-
-- `docker-compose.base.infrastructure.yaml` -> `apps/tazama-platform`
-- `docker-compose.base.auth.yaml` + `docker-compose.dev.auth.yaml` -> `apps/tazama-auth`
-- `docker-compose.hub.core.yaml` / `docker-compose.dev.core.yaml` -> `apps/tazama-core`
-- `docker-compose.hub.rules.yaml` + `docker-compose.full.rules.yaml` -> `apps/tazama-rules`
-- `docker-compose.hub.relay.yaml` / `docker-compose.dev.relay.yaml` -> `apps/tazama-relay`
-- `docker-compose.hub.logs.base.yaml` -> `apps/tazama-observability`
-- `docker-compose.hub.ui.yaml` -> `apps/tazama-ui`
-- `docker-compose.utils.*.yaml` -> `apps/tazama-utils`
-- Shared env/auth/sql/hasura assets -> `apps/tazama-config`
-
 ## Deployment Flow
 
 From `ansible/`:
@@ -94,6 +47,54 @@ Then verify:
 kubectl -n tazama get deploy,sts,pod
 ```
 
+### 2.1) Access Demo UI On K3s
+
+The UI service is internal (`ClusterIP`), so use port-forwarding from your machine.
+
+Run each in a separate terminal:
+
+```bash
+export KUBECONFIG="$HOME/.kube/config"
+kubectl -n tazama port-forward svc/ui 3001:3001
+kubectl -n tazama port-forward svc/tms 5000:3000
+kubectl -n tazama port-forward svc/admin-service 5100:3100
+```
+
+Open:
+
+```text
+http://127.0.0.1:3001
+```
+
+By default, UI backend URLs are browser-local:
+- `NEXT_PUBLIC_TMS_SERVER_URL=http://localhost:5000`
+- `NEXT_PUBLIC_ADMIN_SERVICE_HOSTING=http://localhost:5100`
+
+Keep all port-forward terminals running while using the UI.
+
+If you cannot connect to `3001`:
+
+```bash
+export KUBECONFIG="$HOME/.kube/config"
+kubectl -n tazama get pods,svc | rg 'ui|tms|admin-service'
+kubectl -n tazama port-forward svc/ui 3001:3001
+```
+
+- Use `127.0.0.1` explicitly: `http://127.0.0.1:3001`.
+- Keep the `port-forward` command running (do not close that terminal).
+- If `3001` is already in use, choose another local port, for example:
+  `kubectl -n tazama port-forward svc/ui 13001:3001` then open `http://127.0.0.1:13001`.
+
+If your browser is on a different machine from the K3s host:
+
+```bash
+kubectl -n tazama port-forward --address 0.0.0.0 svc/ui 3001:3001
+kubectl -n tazama port-forward --address 0.0.0.0 svc/tms 5000:3000
+kubectl -n tazama port-forward --address 0.0.0.0 svc/admin-service 5100:3100
+```
+
+Then open `http://<k3s-host-ip>:3001` from that other machine.
+
 ### 3) ArgoCD Deploy On K3s (GitOps Mode)
 
 If you want full GitOps behavior on K3s:
@@ -120,9 +121,3 @@ Before real deployment, update:
 - `ansible/group_vars/all.yml`
 - image tags and hostnames in `apps/*`
 - ingress/storage class settings for your cluster
-
-## Notes
-
-This is an infrastructure baseline aligned to your company GitOps style. It is intentionally explicit and modular so you can evolve each app folder independently.
-
-For this environment, one known cluster baseline issue may remain unrelated to this repository: `kube-system/metrics-server` readiness can fail if kubelet metrics endpoint connectivity is blocked.
